@@ -1,0 +1,27 @@
+body {
+    font-family: verdana;
+    font-size: 12px;
+}
+
+input {
+    border-radius: 3px;
+    color: #333;
+    padding: 2px 5px;
+}
+
+input[type="button"],
+input[type="submit"] {
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 2px 2px 2px 0 #ccc;
+}
+
+input[type="text"] {
+    padding-left: 3px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 4px -2px #ccc inset;
+}
+
+.underline {
+    text-decoration: underline;
+}

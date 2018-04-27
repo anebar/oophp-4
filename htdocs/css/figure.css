@@ -1,0 +1,83 @@
+/** --------------------------------------------------------------
+ * Figure through .figure
+ */
+.figure {
+    display: table;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 1rem;
+}
+
+.figure img {
+    max-width: 100%; /* Make images responsive */
+    display: block;
+    border: 2px solid #7f6300;
+}
+
+.figure figcaption {
+    display: table-caption;
+    caption-side: bottom;
+    padding-top: 2px;
+}
+
+.figure figcaption p {
+    margin: 0;
+    font-style: italic;
+    font-size: 0.7em;
+}
+
+/* Chrome shinks images in td */
+.figure td img {
+    max-width: none;
+}
+
+/* Position the images */
+.figure.left {
+    float: left;
+    margin-right: 20px;
+}
+
+.figure.right {
+    float: right;
+    margin-left: 20px;
+}
+
+.figure.center {
+    clear: both;
+    margin: auto;
+}
+
+.figure.center figcaption {
+    text-align: center;
+}
+
+/* .figure @media screen and (max-width: 600px).w50 {
+    width: 300px;
+}
+
+.figure @media screen @media (max-width: 600px).w25 {
+    width: 150px;
+}
+
+.figure @media screen @media (max-width: 550px).w50 {
+    width: 225px;
+}
+
+.figure @media screen @media (max-width: 450px).w50 {
+    width: 200px;
+}
+
+.figure @media screen @media (max-width: 400px).w50 {
+    width: 150px;
+}
+
+.figure @media screen @media (max-width: 320px).w50 {
+    min-width: 100%;
+}
+
+.figure @media screen @media (max-width: 320px).left,
+.figure @media screen @media (max-width: 320px).right {
+    float: none;
+    margin-left: 0;
+    margin-right: 0;
+} */
