@@ -33,6 +33,7 @@ class Page implements /* PageRenderInterface, */ InjectionAwareInterface
         $data["favicon"] = "favicon.ico";
         $data["stylesheets"] = [
             "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+            // "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css?v=268553110",
             "css/style.css",
             // "css/guess.css",
             "css/figure.css",

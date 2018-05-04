@@ -110,17 +110,33 @@ $app->router->any(["GET", "POST"], "guess/session", function () use ($app) {
     $guessNumber = $_POST["guessNumber"] ?? null;
 
     // https://stackoverflow.com/questions/23103517/use-of-session-id-and-session-name?answertab=votes#tab-top
-    session_name(md5(__FILE__));
-    session_start();
+    // session_name(md5(__FILE__));
+    // session_start();
 
-    if (!isset($_SESSION["game"])) {
+    // // Unset all of the session variables.
+    // $_SESSION = array();
+    //
+    // // If it's desired to kill the session, also delete the session cookie.
+    // // Note: This will destroy the session, and not just the session data!
+    // if (ini_get("session.use_cookies")) {
+    //     $params = session_get_cookie_params();
+    //     setcookie(session_name(), '', time() - 42000,
+    //         $params["path"], $params["domain"],
+    //         $params["secure"], $params["httponly"]
+    //     );
+    // }
+    //
+    // // Finally, destroy the session.
+    // session_destroy();
+    //
+    if (!isset($_SESSION["gameguess"])) {
         $number = -1;
         $tries = 6;
-        $_SESSION["game"] = new \Anb\Guess\Guess($number, $tries);
+        $_SESSION["gameguess"] = new \Anb\Guess\Guess($number, $tries);
     } else {
-        $tries = $_SESSION["game"]->tries();
+        $tries = $_SESSION["gameguess"]->tries();
     }
-    $game = $_SESSION["game"];
+    $game = $_SESSION["gameguess"];
 
     // // Show types
     // echo '<pre>';
@@ -134,8 +150,8 @@ $app->router->any(["GET", "POST"], "guess/session", function () use ($app) {
     if (isset($_POST["doReset"])) {
         // Do not destroy session first.
 
-        $_SESSION["game"] = new \Anb\Guess\Guess();
-        $game = $_SESSION["game"];
+        $_SESSION["gameguess"] = new \Anb\Guess\Guess();
+        $game = $_SESSION["gameguess"];
     }
 
     // // Does not show types

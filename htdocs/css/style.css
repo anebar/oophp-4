@@ -22,9 +22,19 @@ h1 {
 }
 
 h2 {
-    margin-top: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
     font-size: 1.8rem;
     color: #6b6b6b;
+}
+
+h3 {
+    font-size: 1rem;
+    color: #6b6b6b;
+}
+
+.italic {
+    font-style: italic;
 }
 
 .outer-wrap {
@@ -103,8 +113,6 @@ h2 {
     border-bottom: 1px solid #ccc;
 }
 
-
-
 /**
  * Footer
  */
@@ -116,8 +124,6 @@ h2 {
     padding: 1em 0;
 }
 
-
-
 /**
  * Responsive
  */
@@ -125,4 +131,29 @@ h2 {
     .header-logo {
         display: none;
     }
+}
+
+/**
+ * flex-container
+ */
+.flex-container {
+    display: flex;
+}
+
+.flex-container > div {
+    background-color: #bdd4ea;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+/**
+ * form for dice100
+ */
+form.dice100 {
+    background-color: #bdd4ea;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 20px;
 }

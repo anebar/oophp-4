@@ -11,56 +11,76 @@ namespace Anax\View;
 
 <h1><?= $title ?></h1>
 
-<p>Number of dices: <?= $_SESSION["game"]->dices ?></p>
-
-<!-- <pre>
-    if (!empty($_SESSION["game"]->players[0]->getDiceHands())) {
-        print_r($_SESSION["game"]->players[0]->getDiceHands());
-    }
-    if (!empty($_SESSION["game"]->players[1]->getDiceHands())) {
-        print_r($_SESSION["game"]->players[1]->getDiceHands());
-    }
-    ?>
-</pre> -->
-
-<p>
-<?php foreach ($_SESSION["game"]->players as $player) : ?>
-    <?php if (!empty($player->getDiceHands())) : ?>
-        <?php foreach ($player->getDiceHands() as $dicehand) : ?>
-            <p>Value of dices: <?= implode(", ", $dicehand->values()) ?></p>
-            <!-- <p>Sum: <?= $dicehand->sum() ?></p> -->
-        <?php endforeach; ?>
-    <?php endif; ?>
-<?php endforeach; ?>
-</p>
-
-
-<?php if ($noPoints) : ?>
-    <?php foreach ($lastDiceHand->values() as $value) : ?>
-        <p>Value of dice with a one: <?= $value ?></p>
+<div class="flex-container">
+    <?php foreach ($_SESSION["game"]->players as $key => $player) : ?>
+        <div>
+            <h2>Player <?= $key ?></h2>
+            <?php if ($key == 0) : ?>
+                <h3>Me</h3>
+            <?php else : ?>
+                <h3>Computer</h3>
+            <?php endif; ?>
+            <?php if (!empty($player->getDiceHands())) : ?>
+                <?php foreach ($player->getDiceHands() as $dicehand) : ?>
+                    <?php foreach ($dicehand->classes() as $value) : ?>
+                        <i class="dice-sprite <?= $value ?>"></i>
+                        <!-- <span class="dice-sprite <?= $value ?>"></span> -->
+                    <?php endforeach; ?>
+                    <br>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            <p>Total sum: <?= $player->getSum() ?></p>
+            <?php if ($player->getSum() >= 100) : ?>
+                <?php if ($key == 0) : ?>
+                    <h3>Congrats!!! You won.</h3>
+                <?php else : ?>
+                    <h3>Congrats!!! Computer won.</h3>
+                <?php endif; ?>
+            <?php endif; ?>
+            <?php if (($_SESSION["game"]->players[0]->getSum() < 100) && ($_SESSION["game"]->players[1]->getSum() < 100)) : ?>
+                <?php if (!empty($player->getLastDiceHands())) : ?>
+                    <h3>New turn:</h3>
+                    <?php foreach ($player->getLastDiceHands() as $lastDiceHand) : ?>
+                        <?php foreach ($lastDiceHand->classes() as $value) : ?>
+                            <i class="dice-sprite <?= $value ?>"></i>
+                            <!-- <span class="dice-sprite <?= $value ?>"></span> -->
+                        <?php endforeach; ?>
+                        <br>
+                    <?php endforeach; ?>
+                    <p>
+                        Sum: <?= $player->sumlastDiceHands ?>
+                    <?php if ($player->lastNoPoints) : ?>
+                        <br>
+                        <span class="italic">This turn gave no points<br>because of a 1 amongst the dices.</span>
+                    <?php endif; ?>
+                    </p>
+                <?php endif; ?>
+            <?php endif; ?>
+        </div>
     <?php endforeach; ?>
-<?php endif; ?>
+</div>
 
-<p>
-<?php foreach ($_SESSION["game"]->players as $key=>$player) : ?>
-    <p>Total sum for player <?=$key?>: <?= $player->getSum() ?></p>
-    <!-- <span class="dice-sprite <?= $value ?>"></span> -->
-<?php endforeach; ?>
-</p>
-
-<!-- if (!empty($_SESSION["game"]->players[0]->getDiceHands())) { -->
-
-<form method="post">
-    <?php if (empty($_SESSION["game"]->players[0]->getDiceHands())) : ?>
-        <p>Please start the game. You may have the first roll.</p>
+<form class="dice100" method="post">
+    <?php if (($_SESSION["game"]->players[0]->getSum() >= 100) || ($_SESSION["game"]->players[1]->getSum() >= 100)) : ?>
+        <input type="submit" name="play" value="I want to play again">
+    <?php elseif (!empty($_SESSION["game"]->players[1]->sumlastDiceHands)) : ?>
+        <h3>It's your turn.</h3>
+        <input type="submit" name="roll" value="Roll - I want lots of points">
+    <?php elseif (!empty($_SESSION["game"]->players[0]->getLastDiceHands()) &&
+        !$_SESSION["game"]->players[0]->lastNoPoints) : ?>
+        <h3>It's your turn.</h3>
         <input type="submit" name="roll" value="Roll - I want lots of points">
         <input type="submit" name="stop" value="Stop - I'm content with the sum">
-    <?php elseif (!$noPoints) : ?>
-        <p>There is no 1 amongst the dices. You may roll again.</p>
+    <?php elseif (empty($_SESSION["game"]->players[0]->getLastDiceHands())) : ?>
+        <h3>Please start the game. You may have the first roll.</h3>
+        <input type="submit" name="roll" value="Roll - I want lots of points">
+        <input type="submit" name="stop" value="Stop - The computer may roll">
+    <?php elseif (!$_SESSION["game"]->players[0]->lastNoPoints) : ?>
+        <h3>There is no 1 amongst the dices. You may roll again.</h3>
         <input type="submit" name="roll" value="Roll - I want lots of points">
         <input type="submit" name="stop" value="Stop - I'm content with the sum">
-    <?php elseif ($noPoints) : ?>
-        <p>There is a 1 amongst the dices. You may not roll again. There were no points this turn.</p>
-        <input type="submit" name="stop" value="Ok">
+    <?php elseif ($_SESSION["game"]->players[0]->lastNoPoints) : ?>
+        <h3>You may not roll again.<br>It is the computer's turn.</h3>
+        <input type="submit" name="nopoints" value="Ok, no points">
     <?php endif; ?>
 </form>

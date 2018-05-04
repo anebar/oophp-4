@@ -43,12 +43,29 @@ Det var nytt för mig att använda exceptions. Det var riktigt kul att få en br
 **[Länk till min me-sida](http://www.student.bth.se/~anbp17/dbwebb-kurser/oophp/me/redovisa/htdocs)**
 
 
-
 <span id="02"></span>Kmom02
 -------------------------
 
-Här är redovisningstexten
+**Hur gick det att överföra spelet “Gissa mitt nummer” in i din me-sida?**  
+Det var inga problem att lägga in spelet “Gissa mitt nummer” på min me-sida.
 
+**Berätta om hur du löste uppgiften med Tärningsspelet 100, hur du tänkte, planerade och utförde uppgiften samt hur du organiserade din kod?**  
+Jag började att skissa på UML:en. Därefter kopierade jag klasserna om tärningar som jag gjort från guiden “Kom igång med Objektorienterad programmering i PHP” - ["Arv och Komposition"](https://dbwebb.se/guide/kom-igang-med-objektorienterad-programmering-i-php/arv-och-komposition) till ramverket under mappen redovisa. Jag definierade ett par till klasser: Game och Player. Ett spel har flera spelare (i detta fall är två spelare hårdkodat: den som använder spelet och datorn) och spelare har flera spelomgångar. Jag valde att lägga hela spelet i sessionen. Sessionen skapas i htdocs/index.php. För att även det tidigare sessionsspelet "Guess my number" skulle fungera så behövde jag byta namn på sessionsvariabeln som också var "game" (det går inte att definiera flera sessionsvariabler med samma namn).
+
+Jag byggde tyvärr spelet först så att om spelaren fick minst en etta i ett kast så räknades inte det kastet, men poäng från tidigare kast i omgången räknades. Då jag i princip var klar läste jag igenom allt igen för att se att jag täckt alla delar, men tyvärr var jag inte  "hemma". Jag behövde bygga in ett mellanläge, att se till att det inte blir poäng alls för hela omgången om det finns en etta. Så... en hel del refaktorisering, ["refactoring är en variant av att “gör om – gör rätt”](https://dbwebb.se/guide/kom-igang-med-objektorienterad-programmering-i-php/refactoring-av-klasser)", av det slag att jag såg nya krav. Det blev en hel del brydderi, eftersom hela tidigare logiken var klar. Efter mycket testande och en hel del if-satser fungerade det som det skulle, sedan blev det städning av kod. Då fick jag bort mycket genom att exempelvis dra ihop flera villkor samt ta bort metoder och variabler som inte användes. Koden är nu väl strukturerad och fördelad i router, klasser och views samt css:er.
+
+Extrauppgiften "Gör det flexibelt så man kan använda valbart antal tärningar när man spelar spelet" byggde jag in från början. 
+
+**Berätta om din syn på modellering likt UML jämfört med verktyg som phpDocumentor. Fördelar, nackdelar, användningsområde? Vad tycker du om konceptet make doc?**  
+Svårt att säga eftersom jag får så många fel vid `make doc`, dessa kunde dock ignoreras enligt tråden ["make doc ger massor med felrader"](https://dbwebb.se/forum/viewtopic.php?f=37&t=7424&p=60111#p60111). Blev därför inte så triggad av det. Däremot såg det bra ut i en video för kursen. UML:en ger en bra översikt programmet med dess klasser och relationer och översikter tycker jag är viktiga för att få en god känsla över vad som gälelr som helhet.
+
+**Hur känns det att skriva kod utanför och inuti ramverket, ser du fördelar och nackdelar med de olika sätten?**  
+Det är bra och tydligt att använda routes mm för att fördela koden tydligt efter vad som ska hanteras, det blir dock fler filer att underhålla. Jag föredrar ändå att använda ramverket nu när man använt det en del.
+
+**Vilken är din TIL för detta kmom?**  
+Oj! Jag har haft så mycket trubbel med olika saker som inte alls har med kodningen att göra så kodningen blev nästan en bisyssla denna gång, tyvärr. Det blev massor med fel både för `make check`, `make test` och `make doc` samt en mysko dubbel request i FF (finns som dokumenterat fel för FF). Därefter försvann mitt repo för oophp och istället fanns en kopia av kursrepot. `git push` fungerade inte som det skulle, jag behövde ordna nycklar för varje push. Jag tror att jag har lyckats få de flesta fel som kan möjligen uppstå med labbmiljön, trots att den fungerade fint i en tidigare kurs. Stort tack för all hjälp jag har fått för att fixa detta! Så TIL...? Jag har blivit, hoppas jag, lite klokare på Git. Det andra är att jag behöver läsa kraven ännu mer i början, eller scanna av lite mitt i arbetet. Eftersom det är så mycket information scannar jag ofta av texten i början och försöker hitta det viktiga att börja med och sätter sedan igång, taggad att koda.
+
+**[Länk till min me-sida](http://www.student.bth.se/~anbp17/dbwebb-kurser/oophp/me/redovisa/htdocs)**
 
 
 <span id="03"></span>Kmom03

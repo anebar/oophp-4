@@ -7,7 +7,8 @@ namespace Anb\Dice;
 class Dice
 {
     /**
-     * @var int   $sides  Number of sides of the dice.
+    * @var int   $sides     Number of sides of the dice.
+    * @var int   $lastRoll  Last randomized number.
      */
     private $sides;
     // protected => den ärvande klassen kan få tillgång till medlemsvariabler och metoder.

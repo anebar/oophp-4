@@ -7,26 +7,29 @@ namespace Anb\Player;
   */
 class Player
 {
- /**
-  * @var int  $sum   The sum of all throws.
-  */
+    /**
+      * @var int       $sum               The sum of all throws.
+      * @var array     $dicehands         DiceHands for all rolls.
+      * @var array     $lastDiceHands     DiceHands for the last turn.
+      * @var int       $sumlastDiceHands  The sum of all rolls for the last turn.
+      * @var DiceHand  $lastDiceHand      Last DiceHand.
+      * @var bool      $lastNoPoints      If last turn gave points.
+      */
     private $sum;
     private $dicehands;
+    private $lastDiceHands;
+    public $sumlastDiceHands;
+    private $lastDiceHand;
+    public $lastNoPoints;
 
     /**
     * Constructor to create a Player.
-    *
-    * @throws PlayerAgeException when age is negative.
-    *
-    * @param null|string $name The name of the player.
-    * @param null|int    $age  The age of the player.
     */
-    public function __construct(int $sum = 0)
+    public function __construct()
     {
-        // if (!(is_int($age) && $age >= 0)) {
-        //     throw new PlayerAgeException("Age is only allowed to be a positive integer.");
-        // }
-        $this->sum = $sum;
+        $this->dicehands = [];
+        $this->lastDiceHands = [];
+        $this->sum = 0;
     }
 
     /**
@@ -34,7 +37,7 @@ class Player
     */
     public function __destruct()
     {
-        echo __METHOD__;
+        // echo __METHOD__;
     }
 
     /**
@@ -46,7 +49,7 @@ class Player
     */
     public function setSum(int $sum)
     {
-        $this->sum = $this->sum + $sum;
+        $this->sum += $sum;
     }
 
     /**
@@ -59,17 +62,20 @@ class Player
         return $this->sum;
     }
 
+
     /**
-    * Create new hand of dices for players turn.
-    *
-    * @param int $sum The sum for one throw for the player.
+    * Add last DiceHand to all dicehands.
+    * Add sum of last turn to total sum.
     *
     * @return void
     */
-    public function setDiceHand(\Anb\Dice\DiceHand $diceHand)
+    public function setDiceHands()
     {
-        $this->dicehands[] = $diceHand;
-        $this->sum = $this->sum + $diceHand->sum();
+        $this->dicehands = array_merge($this->getDiceHands(), $this->getLastDiceHands());
+        foreach ($this->getLastDiceHands() as $lastDiceHand) {
+            $this->setSum($lastDiceHand->sum());
+        }
+        $this->resetLastDiceHands();
     }
 
     /**
@@ -84,13 +90,62 @@ class Player
 
 
     /**
-    * Remove last diceHand.
-    *
-    * @return array with all dicehands minus the last one.
-    */
-    public function popLastDiceHand()
+     * Reset last DiceHands.
+     *
+     * @return void
+     */
+    public function resetLastDiceHands()
     {
-        array_pop($this->dicehands);
+        $this->lastDiceHands = array();
+        $this->lastNoPoints = false;
+        $this->sumlastDiceHands = 0;
     }
 
+
+    /**
+     * Save last dicehand to lastDiceHands.
+     *
+     * @param DiceHand $lastDiceHand  Last dicehand.
+     *
+     * @return void
+     */
+    public function setLastDiceHands(\Anb\Dice\DiceHand $lastDiceHand)
+    {
+        $this->lastDiceHands[] = $lastDiceHand;
+    }
+
+
+    /**
+     * Get last DiceHands, i.e. last turn of rolls.
+     *
+     * @return void
+     */
+    public function getLastDiceHands()
+    {
+        return $this->lastDiceHands;
+    }
+
+
+    /**
+     * Set last DiceHand.
+     *
+     * @param int  $dices  Amount of dices for game.
+     *
+     * @return void
+     */
+    public function setLastDiceHand(int $dices)
+    {
+        $this->lastDiceHand = new \Anb\Dice\DiceHand($dices);
+    }
+
+
+    /**
+     * Get last DiceHand.
+     *
+     * @return DiceHand as the last dicehand.
+     */
+    public function getLastDiceHand()
+    {
+        return $this->lastDiceHand;
+    }
 }

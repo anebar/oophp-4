@@ -7,13 +7,15 @@ namespace Anb\Dice;
 class DiceHand
 {
     /**
-     * @var Dice  $dices    Array consisting of dices.
-     * @var int   $values   Array consisting of last roll of the dices.
-     * @var int   $sum      Sum of all values.
-     * @var float $average  Average of all values.
+     * @var Dice   $dices    Array consisting of dices.
+     * @var array  $values   Array consisting of last roll of the dices as int.
+     * @var array  $classes  Array consisting of last roll of the dices as string.
+     * @var int    $sum      Sum of all values.
+     * @var float  $average  Average of all values.
      */
     private $dices;
     private $values;
+    private $classes;
     private $sum;
     private $average;
 
@@ -26,10 +28,13 @@ class DiceHand
     {
         $this->dices  = [];
         $this->values = [];
+        $this->classes = [];
 
         for ($i = 0; $i < $dices; $i++) {
-            $this->dices[]  = new Dice();
+            // $this->dices[] = new Dice();
+            $this->dices[]  = new DiceGraphic();
             $this->values[] = null;
+            $this->classes[] = null;
         }
     }
 
@@ -42,6 +47,7 @@ class DiceHand
     {
         for ($i=0; $i < count($this->dices); $i++) {
             $this->values[$i] = $this->dices[$i]->roll();
+            $this->classes[$i] = $this->dices[$i]->graphic();
         }
     }
 
@@ -53,6 +59,16 @@ class DiceHand
     public function values()
     {
         return $this->values;
+    }
+
+    /**
+     * Get classes of dices from last roll to show dice graphic.
+     *
+     * @return array with classes of the last roll.
+     */
+    public function classes()
+    {
+        return $this->classes;
     }
 
     /**
