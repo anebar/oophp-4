@@ -54,7 +54,7 @@ Jag började att skissa på UML:en. Därefter kopierade jag klasserna om tärnin
 
 Jag byggde tyvärr spelet först så att om spelaren fick minst en etta i ett kast så räknades inte det kastet, men poäng från tidigare kast i omgången räknades. Då jag i princip var klar läste jag igenom allt igen för att se att jag täckt alla delar, men tyvärr var jag inte  "hemma". Jag behövde bygga in ett mellanläge, att se till att det inte blir poäng alls för hela omgången om det finns en etta. Så... en hel del refaktorisering, ["refactoring är en variant av att “gör om – gör rätt”](https://dbwebb.se/guide/kom-igang-med-objektorienterad-programmering-i-php/refactoring-av-klasser)", av det slag att jag såg nya krav. Det blev en hel del brydderi, eftersom hela tidigare logiken var klar. Efter mycket testande och en hel del if-satser fungerade det som det skulle, sedan blev det städning av kod. Då fick jag bort mycket genom att exempelvis dra ihop flera villkor samt ta bort metoder och variabler som inte användes. Koden är nu väl strukturerad och fördelad i router, klasser och views samt css:er.
 
-Extrauppgiften "Gör det flexibelt så man kan använda valbart antal tärningar när man spelar spelet" byggde jag in från början. 
+Extrauppgiften "Gör det flexibelt så man kan använda valbart antal tärningar när man spelar spelet" byggde jag in från början.
 
 **Berätta om din syn på modellering likt UML jämfört med verktyg som phpDocumentor. Fördelar, nackdelar, användningsområde? Vad tycker du om konceptet make doc?**  
 Svårt att säga eftersom jag får så många fel vid `make doc`, dessa kunde dock ignoreras enligt tråden ["make doc ger massor med felrader"](https://dbwebb.se/forum/viewtopic.php?f=37&t=7424&p=60111#p60111). Blev därför inte så triggad av det. Däremot såg det bra ut i en video för kursen. UML:en ger en bra översikt programmet med dess klasser och relationer och översikter tycker jag är viktiga för att få en god känsla över vad som gälelr som helhet.
@@ -71,8 +71,24 @@ Oj! Jag har haft så mycket trubbel med olika saker som inte alls har med kodnin
 <span id="03"></span>Kmom03
 -------------------------
 
-Här är redovisningstexten
+**Har du tidigare erfarenheter av att skriva kod som testar annan kod?**  
+Vi hade en workshop på jobbet för ett par år sedan där vi testade Cucumber.
 
+**Hur ser du på begreppen enhetstestning och att skriva testbar kod?**  
+Det är en nödvändighet ur testperspektiv och när man har större system/applikationer. Man kan inte testa ett helt system manuellt varje gång man förändrar eller skapar en ny del.
+
+**Förklara kort begreppen white/grey/black box testing samt positiva och negativa tester, med dina egna ord.**  
+Det är white box testing när man har källkoden som man testar och kan se att testfallen exekverar alla delar av koden. Enhetstester är white box testing. Enhetstester innebär att man testar varje  del/enhet/klass för sig själv. För black-box tester har man inte koden. Man testar en systemfunktion och inte hur det kodmässigt är uppbyggd. Funktionstester är black-box tester. Grey box testing testar delvis både kodstruktur och systemfunktion.
+
+Positiva tester undersöker om mjukvaran fungerar som tänkt och utför de funktioner som man förväntar sig. Negativa tester används för att få fram fel med felaktig indata, för att se att koden hantera det på rätt sätt. Det kan vara att kasta ett exception eller att programmet avslutas med en viss felkod.
+
+**Hur gick det att genomföra uppgifterna med enhetstester, använde du egna klasser som bas för din testning?**  
+Jag utgick från koden i exempelmappen. Det gick bra att genomföra det mesta. Det var dock inte så enkelt att hitta hur man skulle göra med GuessException. Det skiljde sig i sätt från de övriga testerna och dokumentation gav mig bara en liten ledtråd på väg. Jag hittade annan hjälp på nätet som beskrev det lite bättre tyckte jag.
+
+**Vilken är din TIL för detta kmom?**  
+Det var intressant att se och förstå en liten del av vad enhetstestning handlar om. Jag har hört mycket om det, men inte använt det själv.
+
+**[Länk till min me-sida](http://www.student.bth.se/~anbp17/dbwebb-kurser/oophp/me/redovisa/htdocs)**
 
 
 <span id="04"></span>Kmom04
